@@ -76,7 +76,6 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
         <Pagination />
       </div>
 
-      {/* ADD THIS MODAL COMPONENT */}
       <TransactionDetailsModal 
         isOpen={isModalOpen}
         onClose={handleCloseModal}

@@ -1,6 +1,6 @@
 const APYBanner = () => (
   <div
-    className="rounded-lg p-4 mb-6 flex flex-col justify-center"
+    className="rounded-lg p-4 mb-6 flex flex-col justify-center shadow-sm"
     style={{
       background: 'linear-gradient(90deg, #F0FDFA 0%, #FFF7ED 100%)',
       border: '1px solid #E5E5E5',

@@ -1,7 +1,7 @@
 import { RefreshCw } from 'lucide-react';
 
 const BalanceCard = () => (
-  <div className="bg-white rounded-lg border border-gray-200 p-6 mb-6">
+  <div className="bg-white rounded-lg border border-[#E5E5E5] p-6 mb-6 shadow-sm">
     <div className="flex justify-between items-center mb-2">
       <span className="text-sm text-gray-600">Total MNEE balance</span>
       <button className="text-gray-400 hover:text-gray-600">

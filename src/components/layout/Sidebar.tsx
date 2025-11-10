@@ -6,7 +6,7 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ activeSection, setActiveSection }: SidebarProps) => (
-  <div className={`w-70 bg-[#FAFAFA] border-r border-gray-200 flex flex-col transition-all duration-300 overflow-hidden`}>
+  <div className={`w-[277px] bg-[#FAFAFA] border-r border-gray-200 flex flex-col transition-all duration-300 overflow-hidden`}>
     <div className="p-3">
       <div className="flex items-start">
         <img
@@ -14,13 +14,13 @@ const Sidebar = ({ activeSection, setActiveSection }: SidebarProps) => (
           alt="Logo"
           className="h-20 w-auto"
         />
-        <span className="bg-amber-50 text-gray-600 text-xs px-2.5 py-1 rounded ml-2 mt-1">
+        <span className="bg-amber-50 text-gray-600 text-xm px-2.5 py-1 rounded ml-2 mt-1">
           Beta
         </span>
       </div>
     </div>
 
-    <nav className="flex-1 p-2">
+    <nav className="flex-1 p-3">
       <button
         onClick={() => setActiveSection('wallet')}
         className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg mb-2 transition-colors ${
@@ -52,7 +52,7 @@ const Sidebar = ({ activeSection, setActiveSection }: SidebarProps) => (
       </button>
     </nav>
 
-    <div className="p-4">
+    <div className="p-3">
       <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors text-gray-700">
         <LogOut size={20} />
         <span>Sign out</span>

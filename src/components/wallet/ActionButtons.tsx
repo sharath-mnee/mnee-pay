@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { RefreshCw, ArrowUpRight, ArrowDownLeft, X } from 'lucide-react';
+import { ArrowRightLeft, ArrowUpRight, ArrowDownLeft, X, Plus, Minus } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { Utils } from '@bsv/sdk';
 
@@ -74,15 +74,15 @@ const ActionButtons = () => {
     <>
       <div className="grid grid-cols-5 gap-3">
         <button className="bg-white border border-gray-300 rounded-lg py-3 px-4 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
-          <span>−</span>
+          <Minus size={16} />
           <span>Sell</span>
         </button>
         <button className="bg-white border border-gray-300 rounded-lg py-3 px-4 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
-          <RefreshCw size={16} />
+          <ArrowRightLeft size={16} />
           <span>Swap</span>
         </button>
         <button className="bg-white border border-gray-300 rounded-lg py-3 px-4 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
-          <span>+</span>
+          <Plus size={16} />
           <span>Buy</span>
         </button>
         <button
