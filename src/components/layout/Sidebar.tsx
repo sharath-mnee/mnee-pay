@@ -1,4 +1,4 @@
-import { Wallet, RefreshCw, LogOut, Menu } from 'lucide-react';
+import { Wallet, Wrench, LogOut, CreditCard } from 'lucide-react';
 
 interface SidebarProps {
   activeSection: string;
@@ -7,23 +7,23 @@ interface SidebarProps {
 
 const Sidebar = ({ activeSection, setActiveSection }: SidebarProps) => (
   <div className={`w-70 bg-[#FAFAFA] border-r border-gray-200 flex flex-col transition-all duration-300 overflow-hidden`}>
-    <div className="p-6 border-b border-gray-200">
-        <div className="flex items-center gap-3">
-            <img
-            src="/logo.svg"
-            alt="Logo"
-            className="h-20 w-auto"
-            />
-            <span className="bg-amber-50 text-gray-600 text-xs px-2.5 py-1 rounded">
-            Beta
-            </span>
-        </div>
+    <div className="p-3">
+      <div className="flex items-start">
+        <img
+          src="/logo.svg"
+          alt="Logo"
+          className="h-20 w-auto"
+        />
+        <span className="bg-amber-50 text-gray-600 text-xs px-2.5 py-1 rounded ml-2 mt-1">
+          Beta
+        </span>
+      </div>
     </div>
 
-    <nav className="flex-1 p-4">
+    <nav className="flex-1 p-2">
       <button
         onClick={() => setActiveSection('wallet')}
-        className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-2 transition-colors ${
+        className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg mb-2 transition-colors ${
           activeSection === 'wallet' ? 'bg-white border' : 'hover:bg-gray-50'
         }`}
       >
@@ -33,32 +33,32 @@ const Sidebar = ({ activeSection, setActiveSection }: SidebarProps) => (
 
       <button
         onClick={() => setActiveSection('transactions')}
-        className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-2 transition-colors ${
+        className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg mb-2 transition-colors ${
           activeSection === 'transactions' ? 'bg-white border' : 'hover:bg-gray-50'
         }`}
       >
-        <RefreshCw size={20} />
+        <CreditCard size={20} />
         <span>Transactions</span>
       </button>
 
       <button
         onClick={() => setActiveSection('merchant')}
-        className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+        className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg transition-colors ${
           activeSection === 'merchant' ? 'bg-white border' : 'hover:bg-gray-50'
         }`}
       >
-        <Menu size={20} />
+        <Wrench size={20} />
         <span>Merchant tools</span>
       </button>
     </nav>
 
-    <div className="p-4 border-t border-gray-200">
+    <div className="p-4">
       <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors text-gray-700">
         <LogOut size={20} />
         <span>Sign out</span>
       </button>
       
-      <div className="flex items-center gap-3 mt-4 px-2">
+      <div className="flex items-center gap-3 mt-3 px-2">
         <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
         <div className="flex-1 min-w-0">
           <div className="font-medium text-sm truncate">Sharath kariyappa</div>
