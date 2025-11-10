@@ -11,9 +11,12 @@ interface TransactionRowProps {
   getStatusColor: (status: string) => string;
 }
 
-const TransactionRow = ({ tx, getStatusColor }: TransactionRowProps) => (
+const TransactionRow = ({ tx, getStatusColor, onClick }: TransactionRowProps & { onClick: () => void }) => (
     <tr className="align-middle">
-        <td className="px-4 py-2 text-sm font-medium underline cursor-pointer text-left">
+        <td 
+            className="px-4 py-2 text-sm font-medium underline cursor-pointer text-left text-blue-600 hover:text-blue-800"
+            onClick={onClick}
+            >
             {tx.id}
         </td>
 
