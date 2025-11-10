@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import Layout from './components/layout/Layout';
+import WalletPage from './pages/Wallet';
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('wallet');
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
     <Layout 
-      isSidebarOpen={isSidebarOpen}
-      setIsSidebarOpen={setIsSidebarOpen}
       activeSection={activeSection}
-      setActiveSection={setActiveSection} children={undefined}    >
+      setActiveSection={setActiveSection}
+      >
+        {activeSection === 'wallet' && <WalletPage />}
     </Layout>
   );
 };

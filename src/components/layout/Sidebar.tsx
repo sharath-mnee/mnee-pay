@@ -1,13 +1,12 @@
 import { Wallet, RefreshCw, LogOut, Menu } from 'lucide-react';
 
 interface SidebarProps {
-  isSidebarOpen: boolean;
   activeSection: string;
   setActiveSection: (section: string) => void;
 }
 
-const Sidebar = ({ isSidebarOpen, activeSection, setActiveSection }: SidebarProps) => (
-  <div className={`${isSidebarOpen ? 'w-70' : 'w-0'} bg-white border-r border-gray-200 flex flex-col transition-all duration-300 overflow-hidden`}>
+const Sidebar = ({ activeSection, setActiveSection }: SidebarProps) => (
+  <div className={`w-70 bg-[#FAFAFA] border-r border-gray-200 flex flex-col transition-all duration-300 overflow-hidden`}>
     <div className="p-6 border-b border-gray-200">
         <div className="flex items-center gap-3">
             <img
@@ -25,7 +24,7 @@ const Sidebar = ({ isSidebarOpen, activeSection, setActiveSection }: SidebarProp
       <button
         onClick={() => setActiveSection('wallet')}
         className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-2 transition-colors ${
-          activeSection === 'wallet' ? 'bg-gray-100' : 'hover:bg-gray-50'
+          activeSection === 'wallet' ? 'bg-white border' : 'hover:bg-gray-50'
         }`}
       >
         <Wallet size={20} />
@@ -35,7 +34,7 @@ const Sidebar = ({ isSidebarOpen, activeSection, setActiveSection }: SidebarProp
       <button
         onClick={() => setActiveSection('transactions')}
         className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-2 transition-colors ${
-          activeSection === 'transactions' ? 'bg-gray-100' : 'hover:bg-gray-50'
+          activeSection === 'transactions' ? 'bg-white border' : 'hover:bg-gray-50'
         }`}
       >
         <RefreshCw size={20} />
@@ -45,7 +44,7 @@ const Sidebar = ({ isSidebarOpen, activeSection, setActiveSection }: SidebarProp
       <button
         onClick={() => setActiveSection('merchant')}
         className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-          activeSection === 'merchant' ? 'bg-gray-100' : 'hover:bg-gray-50'
+          activeSection === 'merchant' ? 'bg-white border' : 'hover:bg-gray-50'
         }`}
       >
         <Menu size={20} />
