@@ -7,7 +7,7 @@ const Signup: React.FC = () => {
 
   const handleEmailSignIn = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/dashboard");
+    navigate("/onboarding");
   };
 
   const handleGithubSignIn = () => {

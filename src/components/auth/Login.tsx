@@ -128,7 +128,7 @@ const Login: React.FC = () => {
               disabled={!email}
               className={`w-full py-3 rounded-lg font-medium transition-colors ${
                 isEmailValid
-                  ? 'bg-[#D97706] hover:bg-orange-600 text-white'
+                  ? 'bg-[#D97706] hover:bg-orange-400 text-white'
                   : 'bg-[#F5F5F5] cursor-not-allowed text-[#737373] '
               }`}
             >
@@ -205,7 +205,7 @@ const Login: React.FC = () => {
               disabled={!isCodeComplete}
               className={`w-full py-3 rounded-lg font-medium text-white transition-colors ${
                 isCodeComplete
-                  ? 'bg-orange-500 hover:bg-orange-600'
+                  ? 'bg-orange-500 hover:bg-orange-400'
                   : 'bg-gray-300 cursor-not-allowed'
               }`}
             >
