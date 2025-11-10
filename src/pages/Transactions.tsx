@@ -3,7 +3,7 @@ import { transactions } from '../data/MockData';
 import { CreditCard } from "lucide-react"
 
 const Transactions = () => (
-  <div className="p-7 bg-white">
+  <div className="p-7 bg-white h-screen">
     <div className="flex items-center pt-3 pb-12">
       <CreditCard size={20} className="text-gray-800" />
       <div className="h-4 w-px bg-gray-300 mx-4" />

@@ -35,7 +35,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 
   return (
     <>
-      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
         <div className="p-4 flex justify-end">
           <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
             <Download size={16} />

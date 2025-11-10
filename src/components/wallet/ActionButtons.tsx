@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ArrowRightLeft, ArrowUpRight, ArrowDownLeft, X, Plus, Minus } from 'lucide-react';
-import { QRCodeSVG } from 'qrcode.react';
+import { QRCodeCanvas } from 'qrcode.react';
 import { Utils } from '@bsv/sdk';
 
 export const validateAddress = (address: string) => {
@@ -128,7 +128,7 @@ const ActionButtons = () => {
             </div>
 
             <div className="flex justify-center">
-              <QRCodeSVG value={walletAddress} size={180} />
+              <QRCodeCanvas value={walletAddress} size={180} />
             </div>
           </div>
         </div>
@@ -147,7 +147,7 @@ const ActionButtons = () => {
 
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Amount (USD)
+                Amount in USD
               </label>
               <input
                 type="text"
