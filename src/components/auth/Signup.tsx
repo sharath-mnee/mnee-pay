@@ -27,15 +27,12 @@ const Signup: React.FC = () => {
       </div>
 
       <div className="relative w-full md:w-1/2 flex justify-center items-center px-8">
-        {/* Login Button - top right corner */}
         <button
           onClick={() => navigate("/")}
           className="absolute top-6 right-8 text-sm text-gray-500 hover:underline"
         >
           Login
         </button>
-
-        {/* Centered Content */}
         <div className="w-full max-w-sm text-center md:text-left">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">
             Create an account

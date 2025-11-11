@@ -28,6 +28,13 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
       default: return 'bg-gray-600';
     }
   };
+    const getTypeColor = (type: string) => {
+    switch(type) {
+      case 'Send': return 'bg-gray-100 text-gray-800';
+      case 'Receive': return 'bg-amber-500 text-white';
+      default: return 'bg-gray-600';
+    }
+  };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -35,7 +42,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 
   return (
     <>
-      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
+      <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
         <div className="p-4 flex justify-end">
           <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
             <Download size={16} />
@@ -43,17 +50,17 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
           </button>
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto flex-1">
           <table className="w-full">
               <thead className="bg-white border-b border-gray-200">
                   <tr>
-                      <th className="px-4 py-2 text-left text-xs font-medium text-gray-600">Transaction ID</th>
-                      <th className="px-4 py-2 text-left text-xs font-medium text-gray-600">Date ⇅</th>
-                      <th className="px-4 py-2 text-center text-xs font-medium text-gray-600">Type</th>
-                      <th className="px-4 py-2 text-left text-xs font-medium text-gray-600">Module type</th>
-                      <th className="px-4 py-2 text-left text-xs font-medium text-gray-600">Module name</th>
-                      <th className="px-4 py-2 text-left text-xs font-medium text-gray-600">Amount ⇅</th>
-                      <th className="px-4 py-2 text-center text-xs font-medium text-gray-600">Status</th>
+                      <th className="px-4 py-4 text-center text-xs font-bold text-gray-800">Transaction ID</th>
+                      <th className="px-4 py-3 text-center text-xs font-bold text-gray-800">Date ⇅</th>
+                      <th className="px-4 py-3 text-center text-xs font-bold text-gray-800">Type</th>
+                      <th className="px-4 py-3 text-center text-xs font-bold text-gray-800">Module type</th>
+                      <th className="px-4 py-3 text-center text-xs font-bold text-gray-800">Module name</th>
+                      <th className="px-4 py-3 text-center text-xs font-bold text-gray-800">Amount ⇅</th>
+                      <th className="px-4 py-3 text-center text-xs font-bold text-gray-800">Status</th>
                   </tr>
               </thead>
 
@@ -63,6 +70,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
                   key={index} 
                   tx={tx} 
                   getStatusColor={getStatusColor} 
+                  getTypeColor={getTypeColor}
                   onClick={() => {
                       setSelectedTransaction(tx);
                       setIsModalOpen(true);

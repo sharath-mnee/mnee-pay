@@ -23,7 +23,7 @@ const Sidebar = ({ activeSection, setActiveSection }: SidebarProps) => (
     <nav className="flex-1 p-3">
       <button
         onClick={() => setActiveSection('wallet')}
-        className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg mb-2 transition-colors ${
+        className={`w-full flex items-center gap-3 px-4 py-1 rounded-lg mb-2 transition-colors ${
           activeSection === 'wallet' ? 'bg-white border' : 'hover:bg-gray-50'
         }`}
       >
@@ -33,7 +33,7 @@ const Sidebar = ({ activeSection, setActiveSection }: SidebarProps) => (
 
       <button
         onClick={() => setActiveSection('transactions')}
-        className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg mb-2 transition-colors ${
+        className={`w-full flex items-center gap-3 px-4 py-1 rounded-lg mb-2 transition-colors ${
           activeSection === 'transactions' ? 'bg-white border' : 'hover:bg-gray-50'
         }`}
       >
@@ -43,7 +43,7 @@ const Sidebar = ({ activeSection, setActiveSection }: SidebarProps) => (
 
       <button
         onClick={() => setActiveSection('merchant')}
-        className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg transition-colors ${
+        className={`w-full flex items-center gap-3 px-4 py-1 rounded-lg transition-colors ${
           activeSection === 'merchant' ? 'bg-white border' : 'hover:bg-gray-50'
         }`}
       >

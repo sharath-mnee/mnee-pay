@@ -9,46 +9,47 @@ interface TransactionRowProps {
     status: string;
   };
   getStatusColor: (status: string) => string;
+  getTypeColor: (type: string) => string;
 }
 
-const TransactionRow = ({ tx, getStatusColor, onClick }: TransactionRowProps & { onClick: () => void }) => (
+const TransactionRow = ({ tx, getStatusColor, onClick, getTypeColor }: TransactionRowProps & { onClick: () => void }) => (
     <tr className="align-middle">
         <td 
-            className="px-4 py-2 text-sm font-medium underline cursor-pointer text-left text-blue-600 hover:text-blue-800"
+            className="px-4 py-3 text-sm font-medium underline cursor-pointer text-center text-gray-800"
             onClick={onClick}
             >
             {tx.id}
         </td>
 
-        <td className="px-4 py-2 text-sm text-gray-600 text-left">
+        <td className="px-4 py-3 text-sm text-gray-600 text-center">
             {tx.date}
         </td>
 
-        <td className="px-4 py-2 text-center">
-            <span className="inline-flex items-center justify-center w-24 h-8 bg-amber-500 text-white text-sm rounded-[10px] leading-none">
+        <td className="px-4 py-3 text-center">
+            <span className={`inline-flex items-center justify-center w-24 h-6 text-sm rounded-[10px] leading-none ${getTypeColor(tx.type)}`}>
             {tx.type}
             </span>
         </td>
 
-        <td className="px-4 py-2 text-sm text-gray-700">
+        <td className="px-4 py-3 text-sm text-gray-700 text-center">
             {tx.moduleType}
         </td>
 
-        <td className="px-4 py-2 text-sm text-gray-700">
+        <td className="px-4 py-3 text-sm text-gray-700 text-center">
             {tx.moduleName}
         </td>
 
         <td
-            className={`px-4 py-2 text-sm font-medium ${
+            className={`px-4 py-3 text-sm font-medium text-center ${
             tx.amount.startsWith('+') ? 'text-green-600' : 'text-gray-900'
             }`}
         >
             {tx.amount}
         </td>
 
-        <td className="px-4 py-2 text-center">
+        <td className="px-4 py-3 text-center">
             <span
-            className={`inline-flex items-center justify-center w-24 h-8 text-white text-sm rounded-[10px] leading-none ${getStatusColor(
+            className={`inline-flex items-center justify-center w-24 h-6 text-white text-sm rounded-[10px] leading-none ${getStatusColor(
                 tx.status
             )}`}
             >
