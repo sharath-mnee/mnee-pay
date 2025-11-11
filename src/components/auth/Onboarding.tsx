@@ -178,16 +178,18 @@ const Onboarding: React.FC = () => {
 
       {/* Right Section */}
       <div className="w-full lg:w-1/2 flex bg-white items-center justify-center p-4 lg:p-12">
-        <div className="w-full max-w-md">
+        <div className={`w-full ${step === 4 ? 'max-w-xl' : 'max-w-md'}`}>
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-            <div className="mb-6">
-              <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-orange-500 transition-all duration-300"
-                  style={{ width: `${(step / 4) * 100}%` }}
-                />
+            {step !== 4 && (
+              <div className="mb-6">
+                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-orange-500 transition-all duration-300"
+                    style={{ width: `${(step / 4) * 100}%` }}
+                  />
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Step 1: Email Signup */}
             {step === 1 && (
@@ -255,22 +257,17 @@ const Onboarding: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="rounded-lg p-6 mb-6 hover:shadow-sm transition-shadow border border-gray-200">
-                    <div className="flex items-start gap-4">
-                        <div className="flex-shrink-0">
-                        <Database size={40} strokeWidth={1.5} />
-                        </div>
-
-                        <div>
-                        <h3 className="font-semibold text-gray-900 mb-1">
+                <div className="rounded-lg p-5 mb-6 hover:shadow-sm transition-shadow border border-gray-200">
+                    <div className="flex items-center gap-3 mb-3">
+                        <Database size={30} strokeWidth={1.5} />
+                        <h3 className="font-semibold text-gray-900">
                             Support crypto-paying customers
                         </h3>
-                        <p className="text-sm text-gray-600 leading-relaxed">
-                            Tap into the growing market of customers who prefer to pay with cryptocurrency. 
-                            Increase your revenue while staying ahead of payment trends.
-                        </p>
-                        </div>
                     </div>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                        Tap into the growing market of customers who prefer to pay with cryptocurrency. 
+                        Increase your revenue while staying ahead of payment trends.
+                    </p>
                 </div>
 
                   <div className="space-y-3 pb-4">
