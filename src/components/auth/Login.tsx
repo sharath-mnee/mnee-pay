@@ -114,7 +114,7 @@ const Login: React.FC = () => {
                 value={email}
                 onChange={handleEmailChange}
                 onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
-                className={`w-full px-4 py-3 rounded-lg text-[#737373] border ${
+                className={`w-full px-4 py-2 rounded-lg text-[#737373] border ${
                     emailError ? 'border-red-500' : 'border-gray-300'
                 } focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm placeholder:text-base`}
                 />
@@ -126,7 +126,7 @@ const Login: React.FC = () => {
             <button
               onClick={handleLogin}
               disabled={!email}
-              className={`w-full py-3 rounded-lg font-medium transition-colors ${
+              className={`w-full py-2 rounded-lg font-medium transition-colors ${
                 isEmailValid
                   ? 'bg-[#D97706] hover:bg-orange-400 text-white'
                   : 'bg-[#F5F5F5] cursor-not-allowed text-[#737373] '
@@ -203,10 +203,10 @@ const Login: React.FC = () => {
             <button
               onClick={handleVerify}
               disabled={!isCodeComplete}
-              className={`w-full py-3 rounded-lg font-medium text-white transition-colors ${
+              className={`w-full py-2 rounded-lg font-medium transition-colors ${
                 isCodeComplete
-                  ? 'bg-orange-500 hover:bg-orange-400'
-                  : 'bg-gray-300 cursor-not-allowed'
+                  ? 'bg-orange-500 hover:bg-orange-400 text-white'
+                  : 'bg-gray-100 cursor-not-allowed text-gray-500'
               }`}
             >
               Verify & Sign in
@@ -216,7 +216,7 @@ const Login: React.FC = () => {
               Didn't receive the code?{' '}
               <button
                 onClick={handleResend}
-                className="text-gray-900 underline hover:text-orange-500"
+                className="text-gray-600 underline hover:text-orange-500"
               >
                 Resend
               </button>

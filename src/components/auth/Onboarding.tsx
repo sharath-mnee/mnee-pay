@@ -206,7 +206,7 @@ const Onboarding: React.FC = () => {
                     value={email}
                     onChange={handleEmailChange}
                     onKeyPress={(e) => e.key === 'Enter' && handleCreateAccount()}
-                    className={`w-full px-4 py-3 rounded-lg border ${
+                    className={`w-full px-4 py-2 rounded-lg border ${
                       emailError ? 'border-red-500' : 'border-gray-300'
                     } focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm`}
                   />
@@ -218,10 +218,10 @@ const Onboarding: React.FC = () => {
                 <button
                   onClick={handleCreateAccount}
                   disabled={!email}
-                  className={`w-full py-3 rounded-lg font-medium text-white transition-colors ${
+                  className={`w-full py-2 rounded-lg font-medium transition-colors ${
                     isEmailValid
-                      ? 'bg-[#D97706] hover:bg-orange-400'
-                      : 'bg-gray-300 cursor-not-allowed'
+                      ? 'bg-[#D97706] hover:bg-orange-400 text-white'
+                      : 'bg-gray-100 cursor-not-allowed text-gray-500'
                   }`}
                 >
                   Create account
@@ -290,7 +290,7 @@ const Onboarding: React.FC = () => {
 
                 <button
                   onClick={handleEnterBeta}
-                  className="w-full py-3 rounded-lg font-medium text-white bg-[#D97706] hover:bg-orange-400 transition-colors"
+                  className="w-full py-2 rounded-lg font-medium text-white bg-[#D97706] hover:bg-orange-400 transition-colors"
                 >
                   Enter the beta
                 </button>
@@ -330,7 +330,7 @@ const Onboarding: React.FC = () => {
                         setFullName(e.target.value);
                         setNameError('');
                       }}
-                      className={`w-full px-4 py-3 rounded-lg border ${
+                      className={`w-full px-4 py-2 rounded-lg border ${
                         nameError ? 'border-red-500' : 'border-gray-300'
                       } focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm`}
                     />
@@ -351,7 +351,7 @@ const Onboarding: React.FC = () => {
                         setBusinessName(e.target.value);
                         setBusinessError('');
                       }}
-                      className={`w-full px-4 py-3 rounded-lg border ${
+                      className={`w-full px-4 py-2 rounded-lg border ${
                         businessError ? 'border-red-500' : 'border-gray-300'
                       } focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm`}
                     />
@@ -364,10 +364,10 @@ const Onboarding: React.FC = () => {
                 <button
                   onClick={handleProfileSubmit}
                   disabled={!fullName.trim() || !businessName.trim()}
-                  className={`w-full py-3 rounded-lg font-medium text-white transition-colors ${
+                  className={`w-full py-2 rounded-lg font-medium transition-colors ${
                     isProfileValid
-                      ? 'bg-[#D97706] hover:bg-orange-400'
-                      : 'bg-gray-300 cursor-not-allowed'
+                      ? 'bg-[#D97706] hover:bg-orange-400 text-white'
+                      : 'bg-gray-100 cursor-not-allowed text-gray-500'
                   }`}
                 >
                   Create account
@@ -427,10 +427,10 @@ const Onboarding: React.FC = () => {
                 <button
                   onClick={handleVerify}
                   disabled={!isCodeComplete}
-                  className={`w-full py-3 rounded-lg font-medium text-white transition-colors ${
+                  className={`w-full py-2 rounded-lg font-medium transition-colors ${
                     isCodeComplete
-                      ? 'bg-[#D97706] hover:bg-orange-400'
-                      : 'bg-gray-300 cursor-not-allowed'
+                      ? 'bg-[#D97706] hover:bg-orange-400 text-white'
+                      : 'bg-gray-100 cursor-not-allowed text-gray-500'
                   }`}
                 >
                   Verify
@@ -440,7 +440,7 @@ const Onboarding: React.FC = () => {
                   Didn't receive the code?{' '}
                   <button
                     onClick={handleResend}
-                    className="text-gray-900 underline hover:text-orange-500"
+                    className="text-gray-600 underline hover:text-orange-500"
                   >
                     Resend
                   </button>
