@@ -70,7 +70,7 @@ const Sidebar = ({
           }`}
         >
           <Wrench size={20} />
-          <span>Merchant tools</span>
+          <span className="pr-12">Merchant tools</span>
           {merchantToolsExpanded ? (
             <ChevronDown size={16} className="text-gray-700" />
           ) : (

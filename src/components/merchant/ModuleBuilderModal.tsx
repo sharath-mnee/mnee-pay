@@ -88,8 +88,105 @@ const ModuleBuilderModal: React.FC<ModuleBuilderModalProps> = ({
 />`;
   };
 
+  const generateBackendIntegration = (): string => {
+    const customFieldsInterface = config.customFields.length > 0
+      ? `  customFields: {
+${config.customFields.map(f => `    // ${f.label || 'Custom Field'}
+    '${f.id}'?: ${f.type === 'checkbox' ? 'boolean' : 'string'};`).join('\n')}
+  };`
+      : '  customFields: Record<string, any>;';
+
+    const customFieldsSchema = config.customFields.length > 0
+      ? JSON.stringify(config.customFields.map(f => ({
+          id: f.id,
+          type: f.type,
+          label: f.label,
+          placeholder: f.placeholder,
+          required: f.required
+        })), null, 2)
+      : '[]';
+
+    return `// Type definitions for integration
+interface PaymentResult {
+  transactionHash: string;
+  amount: string;              // Total amount charged (includes tax + shipping if applicable)
+  currency: string;
+  from: string;                // Wallet address that paid
+  to: string;                  // Recipient address
+  timestamp: number;           // Unix timestamp
+  networkId: number;
+}
+
+interface CheckoutFormData {
+  email: string;
+${customFieldsInterface}
+}
+
+// CustomFields schema reference (use this to map field IDs to labels, options, etc.)
+const CUSTOM_FIELDS_SCHEMA = ${customFieldsSchema} as const;
+
+// Helper: Get human-readable display value for any custom field
+function getDisplayValue(fieldId: string, value: any): string {
+  const field = CUSTOM_FIELDS_SCHEMA.find(f => f.id === fieldId);
+  if (!field) return String(value);
+  
+  // For select/radio fields, return the option label
+  if ((field.type === "select" || field.type === "radio") && field.options) {
+    const option = field.options.find(opt => opt.value === value);
+    return option?.label || String(value);
+  }
+  
+  // For checkbox, return True/False
+  if (field.type === "checkbox") {
+    return value ? "True" : "False";
+  }
+  
+  // For other types (text, number), return as-is
+  return String(value);
+}
+
+// Helper: Get option details (for select/radio fields only)
+function getOption(fieldId: string, optionValue: string) {
+  const field = CUSTOM_FIELDS_SCHEMA.find(f => f.id === fieldId);
+  return field?.options?.find(opt => opt.value === optionValue);
+}
+
+// Usage: getDisplayValue(fieldId, value) → "XX-Large" or "True" or "42"
+//        getOption(fieldId, value)?.price → 2 (for price modifiers)
+
+// Example: Send to your backend
+async function handlePaymentSuccess(
+  result: PaymentResult,
+  formData: CheckoutFormData
+) {
+  const response = await fetch('/api/payments/verify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      transactionHash: result.transactionHash,
+      amount: result.amount,
+      currency: result.currency,
+      from: result.from,
+      to: result.to,
+      timestamp: result.timestamp,
+      networkId: result.networkId,
+      customerEmail: formData.email,
+      customerData: formData,
+    }),
+  });
+  
+  const data = await response.json();
+  return data;
+}`;
+};
+
   const handleCopy = () => {
     navigator.clipboard.writeText(generateCode());
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+   const copyBackendType = () => {
+    navigator.clipboard.writeText(generateBackendIntegration());
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -120,21 +217,21 @@ const ModuleBuilderModal: React.FC<ModuleBuilderModalProps> = ({
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg w-[90%] max-w-5xl max-h-[90vh] overflow-hidden flex flex-col">
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+        <div className="flex items-center justify-between p-6">
           <h2 className="text-xl font-semibold text-gray-900">Module builder</h2>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
             <X size={24} />
           </button>
         </div>
 
-        <div className="flex border-b border-gray-200">
+        <div className="flex bg-[#F5F5F5] px-5 py-1 rounded-lg gap-3">
           {["configure", "code", "preview"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab as "configure" | "code" | "preview")}
-              className={`px-6 py-3 text-sm font-medium ${
+              className={`px-4 py-1 text-sm font-medium border${
                 activeTab === tab
-                  ? "text-gray-900 border-b-2 border-orange-500"
+                  ? "text-gray-900 border bg-white rounded-lg shadow-sm"
                   : "text-gray-500 hover:text-gray-700"
               }`}
             >
@@ -166,6 +263,21 @@ const ModuleBuilderModal: React.FC<ModuleBuilderModalProps> = ({
                 </div>
                 <pre className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm overflow-x-auto">
                   <code>{generateCode()}</code>
+                </pre>
+              </div>
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="font-medium text-gray-900">Type definitions for backend integration</h3>
+                  <button
+                    onClick={copyBackendType}
+                    className="flex items-center gap-2 px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50"
+                  >
+                    <Copy size={16} />
+                    {copied ? "Copied!" : "Copy"}
+                  </button>
+                </div>
+                <pre className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm overflow-x-auto">
+                  <code>{generateBackendIntegration()}</code>
                 </pre>
               </div>
             </div>
@@ -387,20 +499,20 @@ const ModuleBuilderModal: React.FC<ModuleBuilderModalProps> = ({
             <div>
               <h3 className="font-medium text-gray-900 mb-6">Live preview</h3>
               <div className="flex justify-center">
-                <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 w-full max-w-md text-white shadow-2xl">
+                <div className="bg-white rounded-2xl p-8 w-full max-w-md text-gray-600 shadow-2xl">
                   <div className="text-center mb-6">
                     <h2 className="text-2xl font-semibold mb-2">{config.title}</h2>
                     <p className="text-gray-300 text-sm">{config.description}</p>
                   </div>
 
-                  <div className="bg-gray-800 rounded-lg p-4 mb-6">
+                  <div className="bg-white rounded-lg p-4 mb-6">
                     <div className="flex justify-between items-center mb-4">
-                      <span className="text-gray-400 text-sm">Amount</span>
+                      <span className="text-gray-800 text-sm">Amount</span>
                       <span className="text-lg font-semibold">{config.amount}.00 MNEE</span>
                     </div>
                     <div className="mb-4">
-                      <label className="block text-gray-400 text-sm mb-2">Deposit Address</label>
-                      <div className="flex items-center gap-2 bg-gray-700 rounded p-2">
+                      <label className="block text-gray-800 text-sm mb-2">Deposit Address</label>
+                      <div className="flex items-center gap-2 bg-gray-100 rounded p-2">
                         <span className="text-xs flex-1 truncate font-mono">
                           {config.depositAddress}
                         </span>
@@ -411,18 +523,18 @@ const ModuleBuilderModal: React.FC<ModuleBuilderModalProps> = ({
                     </div>
                     {config.collectEmail && (
                       <div className="mb-4">
-                        <label className="block text-gray-400 text-sm mb-2">Email Address</label>
+                        <label className="block text-gray-800 text-sm mb-2">Email Address</label>
                         <input
                           type="email"
                           placeholder="your@email.com"
-                          className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-3 py-2 bg-gray-100 border border-gray-600 rounded text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                       </div>
                     )}
-                    <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors">
+                    <button className="w-full bg-gray-800 hover:bg-gray-800 text-white font-medium py-3 rounded-lg transition-colors">
                       {config.buttonText || "Complete Payment"}
                     </button>
-                    <div className="text-center mt-3 text-xs text-gray-400 flex items-center justify-center gap-1">
+                    <div className="text-center mt-3 text-xs text-gray-800 flex items-center justify-center gap-1">
                       🔒 Secure Crypto Payment
                     </div>
                   </div>
