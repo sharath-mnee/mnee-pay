@@ -236,11 +236,11 @@ const Onboarding: React.FC = () => {
                   </a>
                 </p>
 
-                <p className="text-xs text-gray-500 text-center mt-4">
+                {/* <p className="text-xs text-gray-500 text-center mt-4">
                   By clicking sign up, you agree to our{' '}
                   <a href="#" className="underline">Terms of Service</a> and{' '}
                   <a href="#" className="underline">Privacy Policy</a>.
-                </p>
+                </p> */}
               </>
             )}
 

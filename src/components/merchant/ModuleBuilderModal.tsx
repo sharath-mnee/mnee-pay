@@ -499,7 +499,7 @@ async function handlePaymentSuccess(
             <div>
               <h3 className="font-medium text-gray-900 mb-6">Live preview</h3>
               <div className="flex justify-center">
-                <div className="bg-white rounded-2xl p-8 w-full max-w-md text-gray-600 shadow-2xl">
+                <div className="bg-white rounded-2xl p-8 w-full max-w-md text-gray-600 border shadow-xm">
                   <div className="text-center mb-6">
                     <h2 className="text-2xl font-semibold mb-2">{config.title}</h2>
                     <p className="text-gray-300 text-sm">{config.description}</p>

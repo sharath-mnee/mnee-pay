@@ -5,7 +5,6 @@ import WalletPage from './pages/Wallet';
 import Transactions from './pages/Transactions';
 import Login from './components/auth/Login';
 import Onboarding from './components/auth/Onboarding';
-import Signup from './components/auth/Signup';
 import MerchantToolsPage from './pages/MerchnatTools'
 
 const App = () => {
@@ -14,8 +13,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
-      <Route path="/onboarding" element={<Onboarding />} />
-      <Route path="/signup" element={<Signup />} />
+      <Route path="/signup" element={<Onboarding />} />
 
       <Route
         path="/dashboard"
