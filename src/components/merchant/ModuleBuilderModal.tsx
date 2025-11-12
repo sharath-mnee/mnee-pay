@@ -317,7 +317,7 @@ async function handlePaymentSuccess(
                   <div className="group relative">
                     <Info size={16} className="text-gray-400 cursor-help" />
                     <div className="absolute left-0 bottom-full mb-2 hidden group-hover:block w-64 p-2 bg-gray-900 text-white text-xs rounded shadow-lg">
-                      Customer funds will be sent to this wallet address.
+                      Customer funds will be sent to this wallet address..
                     </div>
                   </div>
                 </label>

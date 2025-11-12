@@ -90,9 +90,9 @@ const Sidebar = ({
               <button
                 key={item.id}
                 onClick={() => onNavigate(item.id)}
-                className={`w-full text-left pl-6 py-2 text-sm rounded-lg ${
+                className={`w-full text-left pl-6 py-1 text-sm rounded-lg ${
                   activeSection === item.id
-                    ? "bg-gray-200"
+                    ? "bg-white border"
                     : "hover:bg-gray-100"
                 }`}
               >

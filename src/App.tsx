@@ -6,6 +6,7 @@ import Transactions from './pages/Transactions';
 import Login from './components/auth/Login';
 import Onboarding from './components/auth/Onboarding';
 import MerchantToolsPage from './pages/MerchnatTools'
+import GettingStarted from './components/merchant/tools/GettingStarted';
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('wallet');
@@ -21,10 +22,12 @@ const App = () => {
           <Layout
             activeSection={activeSection}
             setActiveSection={setActiveSection}
+            onNavigate={(id: string) => setActiveSection(id)}
           >
             {activeSection === 'wallet' && <WalletPage />}
             {activeSection === 'transactions' && <Transactions />}
             {activeSection === 'merchanttools' && <MerchantToolsPage />}
+            {activeSection === 'merchant-getting-started' && <GettingStarted />}
           </Layout>
         }
       />
