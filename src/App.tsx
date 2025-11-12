@@ -6,6 +6,7 @@ import Transactions from './pages/Transactions';
 import Login from './components/auth/Login';
 import Onboarding from './components/auth/Onboarding';
 import Signup from './components/auth/Signup';
+import MerchantToolsPage from './pages/MerchnatTools'
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('wallet');
@@ -25,6 +26,7 @@ const App = () => {
           >
             {activeSection === 'wallet' && <WalletPage />}
             {activeSection === 'transactions' && <Transactions />}
+            {activeSection === 'merchanttools' && <MerchantToolsPage />}
           </Layout>
         }
       />
