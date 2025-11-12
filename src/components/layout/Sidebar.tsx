@@ -1,12 +1,28 @@
-import { Wallet, Wrench, LogOut, CreditCard } from 'lucide-react';
+import {
+  Wallet,
+  Wrench,
+  LogOut,
+  CreditCard,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 
 interface SidebarProps {
   activeSection: string;
   setActiveSection: (section: string) => void;
+  onNavigate: (route: string) => void;
+  merchantToolsExpanded: boolean;
+  onToggleMerchantTools: () => void;
 }
 
-const Sidebar = ({ activeSection, setActiveSection }: SidebarProps) => (
-  <div className={`w-[277px] bg-[#FAFAFA] border-r border-gray-200 flex flex-col transition-all duration-300 overflow-hidden`}>
+const Sidebar = ({
+  activeSection,
+  setActiveSection,
+  onNavigate,
+  merchantToolsExpanded,
+  onToggleMerchantTools,
+}: SidebarProps) => (
+  <div className="w-[277px] bg-[#FAFAFA] border-r border-gray-200 flex flex-col transition-all duration-300 overflow-hidden">
     <div className="p-3">
       <div className="flex items-start">
         <img
@@ -41,15 +57,51 @@ const Sidebar = ({ activeSection, setActiveSection }: SidebarProps) => (
         <span>Transactions</span>
       </button>
 
-      <button
-        onClick={() => setActiveSection('merchant')}
-        className={`w-full flex items-center gap-3 px-4 py-1 rounded-lg transition-colors ${
-          activeSection === 'merchant' ? 'bg-white border' : 'hover:bg-gray-50'
-        }`}
-      >
-        <Wrench size={20} />
-        <span>Merchant tools</span>
-      </button>
+      <div>
+        <button
+          onClick={() => {
+            setActiveSection("merchanttools");
+            onToggleMerchantTools();
+          }}
+          className={`w-full flex items-center gap-3 px-4 py-1 rounded-lg mb-2 transition-colors ${
+            activeSection === "merchanttools"
+              ? "bg-white border"
+              : "hover:bg-gray-50"
+          }`}
+        >
+          <Wrench size={20} />
+          <span>Merchant tools</span>
+          {merchantToolsExpanded ? (
+            <ChevronDown size={16} className="text-gray-700" />
+          ) : (
+            <ChevronUp size={16} className="text-gray-700" />
+          )}
+        </button>
+
+        {merchantToolsExpanded && (
+          <div className="relative ml-6 mt-1">
+            <div className="absolute left-0 top-0 bottom-0 w-px bg-gray-300" />
+            {[
+              { id: "merchant-getting-started", label: "Getting started" },
+              { id: "merchant-api", label: "API documentation" },
+              { id: "merchant-examples", label: "Examples" },
+              { id: "merchant-styles", label: "Styles & theming" },
+            ].map((item) => (
+              <button
+                key={item.id}
+                onClick={() => onNavigate(item.id)}
+                className={`w-full text-left pl-6 py-2 text-sm rounded-lg ${
+                  activeSection === item.id
+                    ? "bg-gray-200"
+                    : "hover:bg-gray-100"
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
     </nav>
 
     <div className="p-3">
