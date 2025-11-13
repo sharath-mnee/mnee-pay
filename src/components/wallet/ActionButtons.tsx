@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRightLeft, ArrowUpRight, ArrowDownLeft, X, Plus, Minus } from 'lucide-react';
+import { ArrowRightLeft, ArrowUpRight, ArrowDownLeft, X, Plus, Minus, ClipboardPaste } from 'lucide-react';
 import { QRCodeCanvas } from 'qrcode.react';
 import { Utils } from '@bsv/sdk';
 
@@ -159,22 +159,30 @@ const ActionButtons = () => {
               {amountError && <p className="text-xs text-red-500 mt-1">{amountError}</p>}
             </div>
 
-            <div className="mb-4">
+            <div className="mb-4 relative">
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Send To
               </label>
-              <input
-                type="text"
-                value={sendTo}
-                onChange={(e) => handleSendToChange(e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none"
-                placeholder="Enter Bitcoin address"
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  value={sendTo}
+                  onChange={(e) => handleSendToChange(e.target.value)}
+                  className="w-full border border-gray-300 rounded px-3 py-2 pr-10 text-sm outline-none"
+                  placeholder="Enter Bitcoin address"
+                />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-2 flex items-center text-gray-700"
+                >
+                  <ClipboardPaste className="h-5 w-5" />
+                </button>
+              </div>
               {sendToError && <p className="text-xs text-red-500 mt-1">{sendToError}</p>}
             </div>
             <button
               onClick={handleSend}
-              className="w-full bg-[#D97706] text-white py-2 rounded-lg hover:bg-orange-600 transition-colors"
+              className="w-full bg-[#D97706] text-white py-2 rounded-lg hover:bg-orange-500 transition-colors"
             >
               Send
             </button>

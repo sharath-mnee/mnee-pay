@@ -9,6 +9,7 @@ import Modules from './components/merchant/tools/Modules'
 import GettingStarted from './components/merchant/tools/GettingStarted';
 import APIReference from './components/merchant/tools/APIReference';
 import Examples from './components/merchant/tools/Examples';
+import StylingTheming from './components/merchant/tools/StylingTheming';
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('wallet');
@@ -32,6 +33,7 @@ const App = () => {
             {activeSection === 'merchant-getting-started' && <GettingStarted />}
             {activeSection === 'merchant-api' && <APIReference />}
             {activeSection === 'merchant-examples' && <Examples />}
+            {activeSection === 'merchant-styles' && <StylingTheming />}
           </Layout>
         }
       />
