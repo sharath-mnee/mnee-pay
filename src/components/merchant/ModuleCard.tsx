@@ -49,7 +49,7 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ module, onOpen }) => {
           onClick={() => onOpen(module)}
           className="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50"
         >
-          Open
+          Edit
         </button>
       </div>
     </div>

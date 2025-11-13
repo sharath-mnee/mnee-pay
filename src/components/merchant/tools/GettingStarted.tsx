@@ -28,13 +28,13 @@ const CodeBlock: React.FC<{ code: string }> = ({ code }) => (
 
 const GettingStarted: React.FC = () => {
   return (
-    <div className="p-8 overflow-y-auto max-w-4xl text-gray-800">
-      <div className="flex items-center gap-2 mb-12">
+    <div className="p-7 overflow-y-auto max-w-4xl text-gray-800">
+      <div className="flex items-center pt-3 pb-12">
         <Wrench size={20} className="text-gray-800" />
-        <div className="h-4 w-px bg-gray-300" />
-        <h1 className="text-xl font-normal text-gray-900">Merchant tools</h1>
-        <ChevronRight size={20} className="text-gray-800" />
-        <h1 className="text-xl font-normal text-gray-900">Getting started</h1>
+        <div className="h-4 w-px bg-gray-300 mx-4" />
+        <h1 className="text-xl font-normal text-gray-500">Merchant tools</h1>
+        <ChevronRight size={20} className="text-gray-700" />
+        <h1 className="text-xl font-normal text-gray-700">Getting started</h1>
       </div>
 
       <h1 className="text-3xl font-bold mb-4">Getting Started</h1>

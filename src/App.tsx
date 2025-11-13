@@ -5,7 +5,7 @@ import WalletPage from './pages/Wallet';
 import Transactions from './pages/Transactions';
 import Login from './components/auth/Login';
 import Onboarding from './components/auth/Onboarding';
-import MerchantToolsPage from './pages/MerchnatTools'
+import Modules from './components/merchant/tools/Modules'
 import GettingStarted from './components/merchant/tools/GettingStarted';
 
 const App = () => {
@@ -26,7 +26,7 @@ const App = () => {
           >
             {activeSection === 'wallet' && <WalletPage />}
             {activeSection === 'transactions' && <Transactions />}
-            {activeSection === 'merchanttools' && <MerchantToolsPage />}
+            {activeSection === 'modules' && <Modules />}
             {activeSection === 'merchant-getting-started' && <GettingStarted />}
           </Layout>
         }

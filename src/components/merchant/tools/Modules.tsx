@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Wrench } from "lucide-react";
-import ModuleCard from "../components/merchant/ModuleCard";
-import ModuleBuilderModal from "../components/merchant/ModuleBuilderModal";
-import { type ModuleData } from "../components/merchant/ModuleCard";
-import { type ModuleConfig } from "../components/merchant/ModuleBuilderModal";
+import { Wrench, ChevronRight } from "lucide-react";
+import ModuleCard from "../ModuleCard";
+import ModuleBuilderModal from "../ModuleBuilderModal";
+import { type ModuleData } from "../ModuleCard";
+import { type ModuleConfig } from "../ModuleBuilderModal";
 
-const MerchantToolsPage: React.FC = () => {
+const Modules: React.FC = () => {
   const [modules, setModules] = useState<ModuleData[]>([
     {
         id: 1, title: "Premium content", type: "paywall",
@@ -74,13 +74,12 @@ const MerchantToolsPage: React.FC = () => {
 
   return (
     <div className="p-7 bg-white h-screen">
-      <div className="flex items-center justify-between pt-1 pb-11">
-        <div className="flex items-center">
-          <Wrench size={20} className="text-gray-800" />
-          <div className="h-4 w-px bg-gray-300 mx-4" />
-          <h1 className="text-xl font-normal text-gray-900">Merchant tools</h1>
-        </div>
-        
+      <div className="flex items-center pt-3 pb-12">
+        <Wrench size={20} className="text-gray-800" />
+        <div className="h-4 w-px bg-gray-300 mx-4" />
+        <h1 className="text-xl font-normal text-gray-500">Merchant tools</h1>
+        <ChevronRight size={20} className="text-gray-700" />
+        <h1 className="text-xl font-normal text-gray-700">Modules</h1>
       </div>
 
       <div className="mb-8 border p-6 rounded-lg">
@@ -115,4 +114,4 @@ const MerchantToolsPage: React.FC = () => {
   );
 };
 
-export default MerchantToolsPage;
+export default Modules;
