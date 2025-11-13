@@ -77,17 +77,17 @@ const Modules: React.FC = () => {
       <div className="flex items-center pt-3 pb-12">
         <Wrench size={20} className="text-gray-800" />
         <div className="h-4 w-px bg-gray-300 mx-4" />
-        <h1 className="text-xl font-normal text-gray-500">Merchant tools</h1>
+        <h1 className="text-xm font-normal text-gray-500">Merchant tools</h1>
         <ChevronRight size={20} className="text-gray-700" />
-        <h1 className="text-xl font-normal text-gray-700">Modules</h1>
+        <h1 className="text-xm font-normal text-gray-700">Modules</h1>
       </div>
 
-      <div className="mb-8 border p-6 rounded-lg">
+      <div className="border p-6 rounded-lg">
         <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-medium text-gray-900">Your modules</h2>
             <button
             onClick={handleCreateModule}
-            className="flex items-center gap-2 px-4 py-2 bg-[#D97706] text-white rounded-lg hover:bg-orange-500"
+            className="flex items-center gap-2 px-4 py-1 bg-[#D97706] text-white rounded-lg hover:bg-orange-500"
             >
             Create module
             </button>
