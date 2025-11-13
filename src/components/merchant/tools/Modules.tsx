@@ -47,6 +47,7 @@ const Modules: React.FC = () => {
         customFields: []
     },
   ]);
+//   const [modules, setModules] = useState<ModuleData[]>([]);
 
   const [showModal, setShowModal] = useState(false);
   const [selectedModule, setSelectedModule] = useState<ModuleData | undefined>(undefined);
@@ -96,11 +97,16 @@ const Modules: React.FC = () => {
             Add the option to pay with crypto to your React-based website or application.
         </p>
 
-        <div className="space-y-3">
+        {modules.length === 0 ? (
+          <div className="text-center text-gray-500">
+          </div>
+        ) : (
+          <div className="space-y-3">
             {modules.map((module) => (
-            <ModuleCard key={module.id} module={module} onOpen={handleOpenModule} />
+              <ModuleCard key={module.id} module={module} onOpen={handleOpenModule} />
             ))}
-        </div>
+          </div>
+        )}
       </div>
 
       {showModal && (
