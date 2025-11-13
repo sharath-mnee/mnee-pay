@@ -7,6 +7,7 @@ import Login from './components/auth/Login';
 import Onboarding from './components/auth/Onboarding';
 import Modules from './components/merchant/tools/Modules'
 import GettingStarted from './components/merchant/tools/GettingStarted';
+import APIReference from './components/merchant/tools/APIReference';
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('wallet');
@@ -28,6 +29,7 @@ const App = () => {
             {activeSection === 'transactions' && <Transactions />}
             {activeSection === 'modules' && <Modules />}
             {activeSection === 'merchant-getting-started' && <GettingStarted />}
+            {activeSection === 'merchant-api' && <APIReference />}
           </Layout>
         }
       />

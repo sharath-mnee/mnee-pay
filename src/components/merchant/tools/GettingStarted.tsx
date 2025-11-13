@@ -18,8 +18,8 @@ const CopyButton: React.FC<{ code: string }> = ({ code }) => {
 };
 
 const CodeBlock: React.FC<{ code: string }> = ({ code }) => (
-  <div className="relative border rounded-lg overflow-hidden mb-4">
-    <pre className="bg-gray-100 p-4 overflow-x-auto text-sm">
+  <div className="relative border border-gray-700 rounded-lg overflow-hidden mb-4">
+    <pre className="bg-black text-white p-4 overflow-x-auto text-sm">
       <code>{code}</code>
     </pre>
     <CopyButton code={code} />
@@ -27,8 +27,16 @@ const CodeBlock: React.FC<{ code: string }> = ({ code }) => (
 );
 
 const GettingStarted: React.FC = () => {
+  const [selectedTab, setSelectedTab] = React.useState<'npm' | 'yarn' | 'pnpm'>('npm');
+
+  const installCommands = {
+    npm: 'npm install @mnee/checkout',
+    yarn: 'yarn add @mnee/checkout',
+    pnpm: 'pnpm add @mnee/checkout',
+  };
+
   return (
-    <div className="p-7 overflow-y-auto max-w-4xl text-gray-800">
+    <div className="px-7 py-7 overflow-y-auto w-full text-gray-800">
       <div className="flex items-center pt-3 pb-12">
         <Wrench size={20} className="text-gray-800" />
         <div className="h-4 w-px bg-gray-300 mx-4" />
@@ -46,18 +54,44 @@ const GettingStarted: React.FC = () => {
         <h2 className="text-2xl font-semibold mb-3">Installation</h2>
         <p className="mb-3">Install the package using your favorite package manager:</p>
 
-        <div className="space-y-4">
-          <div>
-            <p className="font-medium mb-1">npm</p>
-            <CodeBlock code="npm install @mnee/checkout" />
+        <div className="border border-gray-300 rounded-lg overflow-hidden">
+          <div className="flex w-full border-b border-gray-300">
+            <button
+              onClick={() => setSelectedTab('npm')}
+              className={`flex-1 px-4 py-2 text-sm font-medium transition-colors ${
+                selectedTab === 'npm'
+                  ? 'bg-gray-200 text-gray-900'
+                  : 'bg-white text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              npm
+            </button>
+            <button
+              onClick={() => setSelectedTab('yarn')}
+              className={`flex-1 px-4 py-2 text-sm font-medium transition-colors border-l border-r border-gray-300 ${
+                selectedTab === 'yarn'
+                  ? 'bg-gray-200 text-gray-900'
+                  : 'bg-white text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              yarn
+            </button>
+            <button
+              onClick={() => setSelectedTab('pnpm')}
+              className={`flex-1 px-4 py-2 text-sm font-medium transition-colors ${
+                selectedTab === 'pnpm'
+                  ? 'bg-gray-200 text-gray-900'
+                  : 'bg-white text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              pnpm
+            </button>
           </div>
-          <div>
-            <p className="font-medium mb-1">yarn</p>
-            <CodeBlock code="yarn add @mnee/checkout" />
-          </div>
-          <div>
-            <p className="font-medium mb-1">pnpm</p>
-            <CodeBlock code="pnpm add @mnee/checkout" />
+          <div className="relative">
+            <pre className="bg-black text-white p-4 overflow-x-auto text-sm">
+              <code>{installCommands[selectedTab]}</code>
+            </pre>
+            <CopyButton code={installCommands[selectedTab]} />
           </div>
         </div>
       </section>

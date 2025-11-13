@@ -80,25 +80,28 @@ const Sidebar = ({
         {merchantToolsExpanded && (
           <div className="relative ml-6 mt-1">
             <div className="absolute left-0 top-0 bottom-0 w-px bg-gray-300" />
-            {[
-              { id: "merchant-getting-started", label: "Getting started" },
-              { id: "merchant-api", label: "API documentation" },
-              { id: "modules", label: "Modules" },
-              { id: "merchant-examples", label: "Examples" },
-              { id: "merchant-styles", label: "Styles & theming" },
-            ].map((item) => (
-              <button
-                key={item.id}
-                onClick={() => onNavigate(item.id)}
-                className={`w-full text-left pl-6 py-1 text-sm rounded-lg ${
-                  activeSection === item.id
-                    ? "bg-white border"
-                    : "hover:bg-gray-100"
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
+
+            <div className="pl-3">
+              {[
+                { id: "merchant-getting-started", label: "Getting started" },
+                { id: "merchant-api", label: "API documentation" },
+                { id: "modules", label: "Modules" },
+                { id: "merchant-examples", label: "Examples" },
+                { id: "merchant-styles", label: "Styles & theming" },
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => onNavigate(item.id)}
+                  className={`w-full text-left pl-3 py-1 text-sm rounded-lg ${
+                    activeSection === item.id
+                      ? "bg-white border"
+                      : "hover:bg-gray-100"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
           </div>
         )}
       </div>
