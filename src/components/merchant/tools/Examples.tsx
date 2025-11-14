@@ -1,22 +1,67 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Wrench, ChevronRight, Copy, ChevronDown, ChevronUp } from 'lucide-react';
 
 const CopyButton: React.FC<{ code: string }> = ({ code }) => {
-  const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    alert('Copied to clipboard!');
   };
 
   return (
     <button
       onClick={handleCopy}
-      className="absolute top-2 right-2 flex items-center gap-1 bg-gray-200 hover:bg-gray-300 text-gray-800 px-2 py-1 rounded text-xs"
+      className="absolute top-2 right-2 flex items-center gap-1 bg-gray-300 hover:bg-gray-300 text-gray-800 px-2 py-2 rounded text-xs transition-colors z-10"
     >
-      <Copy size={14} /> {copied ? 'Copied!' : 'Copy'}
+      <Copy size={15} />
     </button>
+  );
+};
+const CodeBlock: React.FC<{ code: string; language?: string }> = ({ code, language = 'tsx' }) => {
+  const [html, setHtml] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const highlight = async () => {
+      try {
+        const shiki = await import('shiki');
+        
+        const highlighter = await shiki.createHighlighter({
+          themes: ['dark-plus'],
+          langs: ['tsx', 'typescript', 'javascript', 'jsx'],
+        });
+
+        const highlighted = highlighter.codeToHtml(code, {
+          lang: language,
+          theme: 'dark-plus',
+        });
+        
+        setHtml(highlighted);
+      } catch (error) {
+        console.error('Syntax highlighting error:', error);
+        setHtml(`<pre class="bg-[#1e1e1e] text-white p-4"><code>${code}</code></pre>`);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    highlight();
+  }, [code, language]);
+
+  return (
+    <div className="relative border border-gray-700 rounded-lg overflow-hidden">
+      {isLoading ? (
+        <pre className="bg-[#1e1e1e] text-white p-4 overflow-x-auto text-sm font-mono">
+          <code>{code}</code>
+        </pre>
+      ) : (
+        <div 
+          className="text-sm overflow-x-auto [&_pre]:!m-0 [&_pre]:!p-4 [&_pre]:!rounded-none [&_pre]:font-mono"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      )}
+      <CopyButton code={code} />
+    </div>
   );
 };
 
@@ -32,47 +77,42 @@ const ExampleCard: React.FC<ExampleCardProps> = ({ title, description, tags, cod
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="border border-gray-300 rounded-lg overflow-hidden mb-4">
-      <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full p-3 text-left hover:bg-gray-50 transition-colors"
-      >
-        <div className="flex justify-between items-start">
-          <div className="flex-1">
-            <h3 className="text-lg font-semibold mb-2">{title}</h3>
-            <p className="text-gray-600 mb-3">{description}</p>
-            <div className="flex gap-2">
-              {tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-3 py-1 bg-gray-100 rounded text-sm text-gray-900"
-                >
-                  {tag}
-                </span>
-              ))}
+    <div className="mb-4">
+      <div className="border border-gray-300 rounded-lg overflow-hidden">
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="w-full p-3 text-left hover:bg-gray-50 transition-colors"
+        >
+          <div className="flex justify-between items-start">
+            <div className="flex-1">
+              <h3 className="text-lg font-semibold mb-2">{title}</h3>
+              <p className="text-gray-600 mb-3">{description}</p>
+              <div className="flex gap-2 flex-wrap">
+                {tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-3 py-1 bg-gray-100 rounded text-sm text-gray-700"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="ml-4">
+              {isExpanded ? (
+                <ChevronUp size={24} className="text-gray-600" />
+              ) : (
+                <ChevronDown size={24} className="text-gray-600" />
+              )}
             </div>
           </div>
-          <div className="ml-4">
-            {isExpanded ? (
-              <ChevronUp size={24} className="text-gray-600" />
-            ) : (
-              <ChevronDown size={24} className="text-gray-600" />
-            )}
-          </div>
-        </div>
-      </button>
+        </button>
+      </div>
 
       {isExpanded && (
-        <div className="border-t border-gray-300">
-          <div className="p-4 bg-gray-50">
-            <span className="text-sm text-gray-600 block mb-2">{codeTitle}</span>
-          </div>
-          <div className="relative">
-            <pre className="bg-black text-white p-4 overflow-x-auto text-sm max-h">
-              <code>{codeSnippet}</code>
-            </pre>
-            <CopyButton code={codeSnippet} />
-          </div>
+        <div className="mt-4">
+          <span className="text-sm text-gray-600 block mb-2">{codeTitle}</span>
+          <CodeBlock code={codeSnippet} language="tsx" />
         </div>
       )}
     </div>
