@@ -27,7 +27,7 @@ export interface ModuleData {
 
 interface ModuleCardProps {
   module: ModuleData;
-  onOpen: (module: ModuleData) => void;
+  onOpen: (module: ModuleData, defaultTab?: "code" | "configure" | "preview") => void;
 }
 
 const ModuleCard: React.FC<ModuleCardProps> = ({ module, onOpen }) => {
@@ -46,7 +46,7 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ module, onOpen }) => {
           <p className="text-sm text-gray-500">Module type: {module.type}</p>
         </div>
         <button
-          onClick={() => onOpen(module)}
+          onClick={() => onOpen(module, "code")}
           className="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50"
         >
           Edit

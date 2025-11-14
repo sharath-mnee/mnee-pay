@@ -28,14 +28,16 @@ interface ModuleBuilderModalProps {
   module?: ModuleConfig;
   onClose: () => void;
   onSave: (config: ModuleConfig) => void;
+  defaultTab?: "code" | "configure" | "preview";
 }
 
 const ModuleBuilderModal: React.FC<ModuleBuilderModalProps> = ({
   module,
   onClose,
   onSave,
+  defaultTab = "code",
 }) => {
-  const [activeTab, setActiveTab] = useState<"code" | "configure" | "preview">("code");
+  const [activeTab, setActiveTab] = useState<"code" | "configure" | "preview">(defaultTab);
 
   const [config, setConfig] = useState<ModuleConfig>(
     module || {
@@ -224,20 +226,22 @@ async function handlePaymentSuccess(
           </button>
         </div>
 
-        <div className="flex bg-[#F5F5F5] px-5 py-1 rounded-lg gap-3">
-          {["configure", "code", "preview"].map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab as "configure" | "code" | "preview")}
-              className={`px-4 py-1 text-sm font-medium border${
-                activeTab === tab
-                  ? "text-gray-900 border bg-white rounded-lg shadow-sm"
-                  : "text-gray-500 hover:text-gray-700"
-              }`}
-            >
-              {tab.charAt(0).toUpperCase() + tab.slice(1)}
-            </button>
-          ))}
+        <div className="px-6">
+          <div className="inline-flex bg-gray-100 p-1 rounded-lg gap-1 w-full">
+            {["configure", "code", "preview"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab as "configure" | "code" | "preview")}
+                className={`px-4 py-1 text-sm font-medium transition-colors rounded-lg text-gray-800 ${
+                  activeTab === tab
+                    ? "bg-white shadow-sm"
+                    : "hover:text-gray-800"
+                }`}
+              >
+                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="flex-1 overflow-y-auto p-6">

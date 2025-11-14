@@ -10,9 +10,9 @@ const CopyButton: React.FC<{ code: string }> = ({ code }) => {
   return (
     <button
       onClick={handleCopy}
-      className="absolute top-2 right-2 flex items-center gap-1 bg-gray-200 hover:bg-gray-300 text-gray-800 px-2 py-1 rounded text-xs"
+      className="absolute top-2 right-2 flex items-center gap-1 bg-gray-100 hover:bg-gray-300 text-gray-800 px-2 py-2 rounded text-xs"
     >
-      <Copy size={14} /> Copy
+      <Copy size={15} />
     </button>
   );
 };
@@ -54,40 +54,40 @@ const GettingStarted: React.FC = () => {
         <h2 className="text-2xl font-semibold mb-3">Installation</h2>
         <p className="mb-3">Install the package using your favorite package manager:</p>
 
-        <div className="border border-gray-300 rounded-lg overflow-hidden">
-          <div className="flex w-full border-b border-gray-300">
+        <div className="overflow-hidden rounded-lg">
+          <div className="flex w-full bg-gray-200 p-1 rounded-lg mb-4">
             <button
               onClick={() => setSelectedTab('npm')}
-              className={`flex-1 px-4 py-2 text-sm font-medium transition-colors ${
+              className={`flex-1 px-4 py-1 text-sm font-medium transition-colors rounded-lg ${
                 selectedTab === 'npm'
-                  ? 'bg-gray-200 text-gray-900'
-                  : 'bg-white text-gray-600 hover:bg-gray-50'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
               }`}
             >
               npm
             </button>
             <button
               onClick={() => setSelectedTab('yarn')}
-              className={`flex-1 px-4 py-2 text-sm font-medium transition-colors border-l border-r border-gray-300 ${
+              className={`flex-1 px-4 py-1 text-sm font-medium transition-colors rounded-lg ${
                 selectedTab === 'yarn'
-                  ? 'bg-gray-200 text-gray-900'
-                  : 'bg-white text-gray-600 hover:bg-gray-50'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
               }`}
             >
               yarn
             </button>
             <button
               onClick={() => setSelectedTab('pnpm')}
-              className={`flex-1 px-4 py-2 text-sm font-medium transition-colors ${
+              className={`flex-1 px-4 py-1 text-sm font-medium transition-colors rounded-lg ${
                 selectedTab === 'pnpm'
-                  ? 'bg-gray-200 text-gray-900'
-                  : 'bg-white text-gray-600 hover:bg-gray-50'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
               }`}
             >
               pnpm
             </button>
           </div>
-          <div className="relative">
+          <div className="relative rounded-lg overflow-hidden">
             <pre className="bg-black text-white p-4 overflow-x-auto text-sm">
               <code>{installCommands[selectedTab]}</code>
             </pre>

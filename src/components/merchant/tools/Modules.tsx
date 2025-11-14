@@ -51,15 +51,18 @@ const Modules: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedModule, setSelectedModule] = useState<ModuleData | undefined>(undefined);
+  const [defaultTab, setDefaultTab] = useState<"code" | "configure" | "preview">("code");
 
-  const handleOpenModule = (module: ModuleData) => {
+    const handleOpenModule = (module: ModuleData, tab?: "code" | "configure" | "preview") => {
     setSelectedModule(module);
+    setDefaultTab(tab || "code");
     setShowModal(true);
   };
 
   const handleCreateModule = () => {
     setSelectedModule(undefined);
-    setShowModal(false);
+    setDefaultTab("configure");
+    setShowModal(true);
   };
 
   const handleSaveModule = (config: ModuleConfig) => {
@@ -114,6 +117,7 @@ const Modules: React.FC = () => {
           module={selectedModule}
           onClose={() => setShowModal(false)}
           onSave={handleSaveModule}
+          defaultTab={defaultTab}
         />
       )}
     </div>
