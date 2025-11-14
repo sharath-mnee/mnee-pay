@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Wrench, ChevronRight, Copy } from 'lucide-react';
 
 const CopyButton: React.FC<{ code: string }> = ({ code }) => {
@@ -10,21 +10,60 @@ const CopyButton: React.FC<{ code: string }> = ({ code }) => {
   return (
     <button
       onClick={handleCopy}
-      className="absolute top-2 right-2 flex items-center gap-1 bg-gray-100 hover:bg-gray-300 text-gray-800 px-2 py-2 rounded text-xs"
+      className="absolute top-2 right-2 flex items-center gap-1 bg-gray-300 hover:bg-gray-300 text-gray-800 px-2 py-2 rounded text-xs"
     >
       <Copy size={15} />
     </button>
   );
 };
 
-const CodeBlock: React.FC<{ code: string }> = ({ code }) => (
-  <div className="relative border border-gray-700 rounded-lg overflow-hidden mb-4">
-    <pre className="bg-black text-white p-4 overflow-x-auto text-sm">
-      <code>{code}</code>
-    </pre>
-    <CopyButton code={code} />
-  </div>
-);
+const CodeBlock: React.FC<{ code: string; language?: string }> = ({ code, language = 'bash' }) => {
+  const [html, setHtml] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const highlight = async () => {
+      try {
+        const shiki = await import('shiki');
+        
+        const highlighter = await shiki.createHighlighter({
+          themes: ['dark-plus'],
+          langs: ['bash', 'javascript', 'typescript', 'tsx', 'jsx'],
+        });
+
+        const highlighted = highlighter.codeToHtml(code, {
+          lang: language,
+          theme: 'dark-plus',
+        });
+        
+        setHtml(highlighted);
+      } catch (error) {
+        console.error('Syntax highlighting error:', error);
+        setHtml(`<pre class="bg-[#1e1e1e] text-white p-4"><code>${code}</code></pre>`);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    highlight();
+  }, [code, language]);
+
+  return (
+    <div className="relative border border-gray-700 rounded-lg overflow-hidden mb-4">
+      {isLoading ? (
+        <pre className="bg-[#1e1e1e] text-white p-4 overflow-x-auto text-sm font-mono">
+          <code>{code}</code>
+        </pre>
+      ) : (
+        <div 
+          className="text-sm overflow-x-auto [&_pre]:!m-0 [&_pre]:!p-4 [&_pre]:!rounded-none [&_pre]:font-mono"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      )}
+      <CopyButton code={code} />
+    </div>
+  );
+};
 
 const GettingStarted: React.FC = () => {
   const [selectedTab, setSelectedTab] = React.useState<'npm' | 'yarn' | 'pnpm'>('npm');
@@ -87,12 +126,7 @@ const GettingStarted: React.FC = () => {
               pnpm
             </button>
           </div>
-          <div className="relative rounded-lg overflow-hidden">
-            <pre className="bg-black text-white p-4 overflow-x-auto text-sm">
-              <code>{installCommands[selectedTab]}</code>
-            </pre>
-            <CopyButton code={installCommands[selectedTab]} />
-          </div>
+          <CodeBlock code={installCommands[selectedTab]} language="bash" />
         </div>
       </section>
 

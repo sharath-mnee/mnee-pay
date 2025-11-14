@@ -249,8 +249,8 @@ async function handlePaymentSuccess(
             <div className="space-y-6">
               <div className="bg-amber-100 border border-amber-400 rounded-lg p-2 flex items-start gap-3">
                 <span className="text-yellow-600">⚠️</span>
-                <p className="text-sm text-yellow-800">
-                  Warning: Do not change the wallet destination address when pasting this code
+                <p className="text-sm text-gray-800">
+                  Warning: Do not change the mneeDepositAddress. Changing the address will permanently send funds to someone else's wallet
                 </p>
               </div>
 
