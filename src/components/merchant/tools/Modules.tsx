@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Wrench, ChevronRight } from "lucide-react";
+import { Wrench, ChevronRight, X } from "lucide-react";
 import ModuleCard from "../ModuleCard";
 import ModuleBuilderModal from "../ModuleBuilderModal";
 import { type ModuleData } from "../ModuleCard";
@@ -53,6 +53,10 @@ const Modules: React.FC = () => {
   const [selectedModule, setSelectedModule] = useState<ModuleData | undefined>(undefined);
   const [defaultTab, setDefaultTab] = useState<"code" | "configure" | "preview">("code");
 
+  const [showCreateModuleModal, setShowCreateModuleModal] = useState(false);
+  const [moduleName, setModuleName] = useState("");
+  const [moduleType, setModuleType] = useState("");
+
     const handleOpenModule = (module: ModuleData, tab?: "code" | "configure" | "preview") => {
     setSelectedModule(module);
     setDefaultTab(tab || "code");
@@ -60,9 +64,34 @@ const Modules: React.FC = () => {
   };
 
   const handleCreateModule = () => {
-    setSelectedModule(undefined);
-    setDefaultTab("configure");
-    setShowModal(true);
+    setShowCreateModuleModal(true);
+  };
+
+  const handleConfirmCreateModule = () => {
+    if (moduleName && moduleType) {
+      const newModule: ModuleData = {
+        id: Date.now(),
+        title: moduleName,
+        type: moduleType as "paywall" | "ecommerce" | "donation",
+        checkoutType: moduleType as "paywall" | "ecommerce" | "donation",
+        amount: "",
+        depositAddress: "",
+        collectEmail: false,
+        showConfetti: false,
+        description: "",
+        buttonText: "",
+        primaryColor: "",
+        buttonColor: "",
+        customFields: []
+      };
+      setModules([...modules, newModule]);
+      setSelectedModule(newModule);
+      setDefaultTab("configure");
+      setShowCreateModuleModal(false);
+      setShowModal(true);
+      setModuleName("");
+      setModuleType("");
+    }
   };
 
   const handleSaveModule = (config: ModuleConfig) => {
@@ -119,6 +148,68 @@ const Modules: React.FC = () => {
           onSave={handleSaveModule}
           defaultTab={defaultTab}
         />
+      )}
+
+      {showCreateModuleModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-lg w-[400px] p-6 relative">
+
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h2 className="text-lg font-semibold">Create Module</h2>
+                <p className="text-sm text-gray-600 mt-1">
+                  Create a new payment module to embed on your website.
+                </p>
+              </div>
+
+              <button onClick={() => setShowCreateModuleModal(false)}>
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Module Name</label>
+              <input
+                type="text"
+                value={moduleName}
+                onChange={(e) => setModuleName(e.target.value)}
+                className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none shadow-sm"
+                placeholder="Name your module"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Module Type</label>
+              <select
+                value={moduleType}
+                onChange={(e) => setModuleType(e.target.value)}
+                className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none bg-white"
+              >
+                <option value="">Select type</option>
+                <option value="paywall">Paywall</option>
+                <option value="ecommerce">E-Commerce</option>
+                <option value="donation">Donations</option>
+              </select>
+            </div>
+
+            <div className="flex justify-end gap-2 mt-4">
+              <button
+                onClick={() => setShowCreateModuleModal(false)}
+                className="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 text-sm"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={handleConfirmCreateModule}
+                className="px-4 py-2 rounded-lg text-white bg-[#D97706] hover:bg-orange-500 transition-colors text-sm"
+              >
+                Create Module
+              </button>
+            </div>
+
+          </div>
+        </div>
       )}
     </div>
   );
