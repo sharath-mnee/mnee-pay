@@ -318,10 +318,10 @@ async function handlePaymentSuccess(
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
                   MNEE Deposit Address
-                  <div className="group relative">
-                    <Info size={16} className="text-gray-400 cursor-help" />
-                    <div className="absolute left-0 bottom-full mb-2 hidden group-hover:block w-64 p-2 bg-gray-900 text-white text-xs rounded shadow-lg">
-                      Customer funds will be sent to this wallet address..
+                  <div className="group relative inline-flex items-center">
+                    <Info size={16} className="text-gray-700 cursor-help" />
+                    <div className="absolute bottom-full left -ml-6 mb-1 hidden group-hover:block whitespace-nowrap bg-[#D97706] text-white text-xs px-3 py-2 rounded shadow-lg z-20">
+                      Customer funds will be sent to this wallet address.
                     </div>
                   </div>
                 </label>
@@ -547,18 +547,17 @@ async function handlePaymentSuccess(
             </div>
           )}
         </div>
-
-        <div className="p-6 border-t border-gray-200 flex justify-end gap-3">
-          <button onClick={onClose} className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
-            Cancel
-          </button>
-          <button
-            onClick={() => onSave(config)}
-            className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600"
-          >
-            Save Module
-          </button>
-        </div>
+        
+        {activeTab === "configure" && (
+          <div className="p-6 border-t border-gray-200">
+            <button
+              onClick={() => onSave(config)}
+              className="w-full px-4 py-3 bg-[#D97706] text-white rounded-lg hover:bg-orange-600 transition-colors"
+            >
+              Save Module
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
