@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Coins, Zap, CircleCheckBig, Database  } from 'lucide-react';
+import { Coins, Zap } from 'lucide-react';
 
 const Onboarding: React.FC = () => {
   const [step, setStep] = useState<number>(1);
@@ -38,9 +38,9 @@ const Onboarding: React.FC = () => {
     setStep(2);
   };
 
-  const handleEnterBeta = (): void => {
-    navigate('/dashboard');
-  };
+  // const handleEnterBeta = (): void => {
+  //   navigate('/dashboard');
+  // };
 
   const handleBackToEmail = (): void => {
     setStep(3);
@@ -58,7 +58,7 @@ const Onboarding: React.FC = () => {
       setBusinessError('Please enter your business name');
       return;
     }
-    setStep(4);
+    navigate('/dashboard',  { state: { showBetaPopup: true } });
   };
 
   const handleCodeChange = (index: number, value: string): void => {
@@ -245,7 +245,7 @@ const Onboarding: React.FC = () => {
             )}
 
             {/* Step 4: Beta Welcome */}
-            {step === 4 && (
+            {/* {step === 4 && (
               <>
                 <div className="text-center mb-6">
                   <div className="text-6xl mb-4">🎉</div>
@@ -292,7 +292,7 @@ const Onboarding: React.FC = () => {
                   Enter the beta
                 </button>
               </>
-            )}
+            )} */}
 
             {/* Step 3: Profile Completion */}
             {step === 3 && (
